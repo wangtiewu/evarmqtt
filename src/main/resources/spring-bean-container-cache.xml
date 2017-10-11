@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- cache -->
+	<bean id="localCache" class="eet.evar.core.cache.Ehcache"
+		singleton="true" init-method="init" destroy-method="destroy">
+		<property name="refreshPeriod">
+			<value>60</value>
+		</property>
+	</bean>
+	<!--<bean id="cache" class="eet.evar.core.cache.MemCacheSpy"
+		singleton="true" init-method="init" destroy-method="destroy">
+		<property name="refreshPeriod">
+			<value>60</value>
+		</property>
+		<property name="servers">
+			<list>
+				<value>10.0.65.18:11211</value>
+			</list>
+		</property>
+		<property name="weights">
+			<list>
+				<value>1</value>
+			</list>
+		</property>
+		<property name="maintThreadSleep">
+			<value>30000</value>
+		</property>
+	</bean>
+	-->
+	<bean id="redis" class="eet.evar.core.redis.RedisImpl" init-method="init" destroy-method="destroy">
+		<property name="servers">
+			<list>
+				<value>${redis.server}</value>
+			</list>
+		</property>
+	</bean>
+	
+
+	
+</beans>
+
