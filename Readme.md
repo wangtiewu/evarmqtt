@@ -21,21 +21,20 @@ evarrpc is a java mqtt broker.It's base on netty.
 * server_mqtt.properties, configure mqtt port or other parameters
 
 * run on
-		eet.evar.tool.Logger.instance();
-		EvarBeanFactory.instance(new String[] {
+```Java
+eet.evar.tool.Logger.instance();
+EvarBeanFactory.instance(new String[] {
 				"spring-bean-container-cache.xml",
 				"spring-bean-container-datasource.xml",
 				"spring-bean-container-mqtt.xml" });
-		RedisBatchProcUtil.setRedis((Redis) EvarBeanFactory.instance().makeBean("redis"));
-		RedisBatchProcUtil.start();
-		String mqttConfigureFile = null;
-		if (args.length > 0) {
-			mqttConfigureFile = args[0];
-		}
-		MqttServer mqttServer = new NettyMqttServer(mqttConfigureFile);
-		mqttServer.start();
-		SubscriptionStore subscriptionStore = (SubscriptionStore) EvarBeanFactory.instance().makeBean(
+RedisBatchProcUtil.setRedis((Redis) EvarBeanFactory.instance().makeBean("redis"));
+RedisBatchProcUtil.start();
+String mqttConfigureFile = null;
+MqttServer mqttServer = new NettyMqttServer(mqttConfigureFile);
+mqttServer.start();
+SubscriptionStore subscriptionStore = (SubscriptionStore) EvarBeanFactory.instance().makeBean(
 				"subscriptionStore");
-		subscriptionStore.setMqttServer(mqttServer);
-		MqttNotifier mqttNotifier = (MqttNotifier) EvarBeanFactory.instance().makeBean("mqttNotifierTarget");
-		mqttNotifier.setMqttServer(mqttServer);
+subscriptionStore.setMqttServer(mqttServer);
+MqttNotifier mqttNotifier = (MqttNotifier) EvarBeanFactory.instance().makeBean("mqttNotifierTarget");
+mqttNotifier.setMqttServer(mqttServer);
+```
